@@ -2,7 +2,8 @@
 <link rel="stylesheet" href="./providerDirectoryUI.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 <script>
-    var dataset = [
+    const version = 2.0
+    let dataset = [
         {
             'last_name': 'Harris',
             'first_name': 'Mike',
@@ -46,64 +47,80 @@
             'practice_name': 'Juday Family Practice'
         }
     ]
-    var app = angular.module('providerDirectoryUiApp', []);
-    app.controller('providerDbCtrl', ($scope) => {
-        $scope.dataset = dataset
-    });
-    app.controller('providerAddCtrl', ($scope) => {
-    })
+    let app = angular.module('ProviderDirectoryApp', [])
+        .controller('ProviderDataController', ($scope) => {
+            $scope.dataset = dataset
+        })
+        .controller('ProviderFormController', ($scope) => {
+        })
 
 </script>
 <html lang="en-US">
 
 <body>
-<div id="layout" ng-app="providerDirectoryUiApp">
-    <table id="layoutTable" width="100%">
+<div id="app" ng-app="ProviderDirectoryApp">
+    <table id="header">
         <tr>
-            <td>Provider Directory</td>
-            <td>v2.0</td>
-        </tr>
-        <tr>
-            <td>
-                <form>
-                    <table id="formTable" width="100%">
-                        <tr ng-controller="providerAddCtrl">
-                            <td class="lastName"><label for="lastName">Last Name: </label><input type="text" class="inputText"
-                                                                                id="lastName"></td>
-                            <td class="fistName"><label for="firstName">First Name: </label><input type="text" class="inputText"
-                                                                                                   id="firstName"></td>
-                            <td class="email"><label for="email">Email Addr: </label><input type="text" class="inputText"
-                                                                              id="email"></td>
-                            <td class="specialty"><label for="specialty">Specialty: </label><input type="text" class="inputText"
-                                                                                 id="specialty"></td>
-                            <td class="practice"><label for="practice">Practice Name: </label><input type="text" class="inputText"
-                                                                                    id="practice"></td>
-                        </tr>
-                    </table>
-                </form>
-            </td>
-        </tr>
-        <tr ng-controller="providerDbCtrl">
-            <td>
-                <table id="dbTable" width="100%">
-                    <tr>
-                        <th class="lastName">Last Name</th>
-                        <th class="firstName">First Name</th>
-                        <th class="email">Email Addr</th>
-                        <th class="specialty">Specialty</th>
-                        <th class="practice">Practice</th>
-                    </tr>
-                    <tr ng-repeat="p in dataset | orderBy: 'last_name'">
-                        <td class="lastName">{{p.last_name}}</td>
-                        <td class="firstName">{{p.first_name}}</td>
-                        <td class="email">{{p.email_address}}</td>
-                        <td class="specialty">{{p.specialty}}</tdu>
-                        <td class="practice">{{p.practice_name}}</td>
-                    </tr>
-                </table>
-            </td>
+            <td id="caduceus"><img src="./Fadookie_Caduceus.svg" alt="caduceus"></td>
+            <td id="header-text">Provider Directory v2.0</td>
         </tr>
     </table>
-</div>
-</body>
+
+
+    <div>
+        <div>
+            <h2 align="center">Add/Edit Provider</h2>
+            <form id="providerForm">
+                <table id="formTable" ng-controller="ProviderFormController">
+                    <tr>
+                        <td class="column-1">
+                            <button type="submit" onclick="doProviderSave()">Submit</button>
+                        <td>
+                        <td class="column-2"><label for="lastName">Last Name: </label><input type="text"
+                                                                                             class="inputText"
+                                                                                             id="lastName"></td>
+                        <td class="column-3"><label for="firstName">First Name: </label><input type="text"
+                                                                                               class="inputText"
+                                                                                               id="firstName"></td>
+                        <td class="column-4"><label for="email">Email Addr: </label><input type="text"
+                                                                                           class="inputText"
+                                                                                           id="email"></td>
+                        <td class="column-5"><label for="specialty">Specialty: </label><input type="text"
+                                                                                              class="inputText"
+                                                                                              id="specialty"></td>
+                        <td class="column-6"><label for="practice">Practice Name: </label><input type="text"
+                                                                                                 class="inputText"
+                                                                                                 id="practice"></td>
+                        <td>
+                            <button type="reset" onclick="doProviderSave()">Reset</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div>
+            <h2 align="center">Provider List</h2>
+        </div>
+        <div>
+            <table ng-controller="ProviderDataController">
+                <tr>
+                    <th class="column-1"></th>
+                    <th class="column-2">Last Name</th>
+                    <th class="column-3">First Name</th>
+                    <th class="column-4">Email Addr</th>
+                    <th class="column-5">Specialty</th>
+                    <th class="column-6">Practice</th>
+                </tr>
+                <tr ng-repeat="p in dataset | orderBy: 'last_name'">
+                    <td class="column-1"><input type="checkbox"/></td>
+                    <td class="column-2">{{p.last_name}}</td>
+                    <td class="column-3">{{p.first_name}}</td>
+                    <td class="column-4">{{p.email_address}}</td>
+                    <td class="column-5">{{p.specialty}}</td>
+                    <td class="column-6">{{p.practice_name}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    </bodyj>
 </html>
