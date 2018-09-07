@@ -1,0 +1,36 @@
+table, th, td {
+    border: 1px solid grey;
+    border-collapse: collapse;
+    padding: 5px;
+}
+#layout div {
+    border: 5px;
+}
+
+#layout div table {
+    width: 1000px;
+}
+.firstName {
+    width: 15%;
+}
+.lastName {
+    width: 15%;
+}
+.email {
+    width: 15%;
+}
+.specialty {
+    width: 15%
+}
+.practice {
+    width: 25%
+}
+#formTable {
+    background-color: antiquewhite;
+}
+
+/*#formTable td {*/
+    /*width: 50%;*/
+/*}*/
+#formInput {
+}
