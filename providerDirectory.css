@@ -1,0 +1,106 @@
+img {
+    width: 75%;
+    height: 75%;
+}
+
+.even-row {
+    background-color: white;
+}
+
+.odd-row {
+    background-color: lightgray;
+}
+input.in-text {
+    width: 325px;
+    font-size: 12pt;
+}
+
+table#dataset {
+    border-collapse: collapse;
+    border-color: grey;
+}
+
+#caduceus {
+    width: 200px;
+}
+
+#top-header {
+    background-color: orange;
+    /*height: 100px;*/
+    padding: 10px;
+}
+
+#td-header-text {
+    font-size: 32pt;
+    font-weight: bolder;
+    width: 100%
+}
+
+#td-header-ver {
+    font-size: 27px;
+    font-weight: bolder;
+    color: gray;
+    width: 100%;
+}
+
+#td-form-view {
+    align-content: center;
+}
+
+#container {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 50px 450px 50px 1000px;
+}
+
+#container > div {
+    /*border-radius: 5px;*/
+    /*padding: 10px;*/
+}
+
+#container > div > div {
+    /*border-radius: 5px;*/
+    /*border-color: black;*/
+    padding: 10px;
+}
+
+div#app {
+    background-color: gray;
+    height: 100%;
+}
+
+/*.tool {*/
+    /*width: 200px;*/
+    /*font-size: 14pt;*/
+    /*font-weight: bolder;*/
+/*}*/
+
+.spacer {
+    /*height: 5px;*/
+    /*background-color: white;*/
+}
+
+#form-provider {
+    background-color: lightblue;
+    border-radius: 25px;
+    padding: 25px;
+    font-size: large;
+    border: 2px solid black;
+}
+
+#tbl-form {
+}
+
+.col-form-label {
+    font-size: larger;
+    font-weight: bold;
+}
+
+.col-form-value {
+    font-size: larger;
+}
+
+.div-dataset-list {
+    width: 100%;
+}
+

@@ -1,126 +1,311 @@
 <!DOCTYPE html>
-<link rel="stylesheet" href="./providerDirectoryUI.css"/>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-<script>
-    const version = 2.0
-    let dataset = [
-        {
-            'last_name': 'Harris',
-            'first_name': 'Mike',
-            'email_address': 'mharris@updox.com',
-            'specialty': 'Pediatrics',
-            'practice_name': 'Harris Pediatrics'
-        },
-        {
-            'last_name': 'Wijoyo',
-            'first_name': 'Bimo',
-            'email_address': 'bwijoyo@updox.com',
-            'specialty': 'Podiatry',
-            'practice_name': 'Wijoyo Podiatry'
-        },
-        {
-            'last_name': 'Rose',
-            'first_name': 'Nate',
-            'email_address': 'nrose@updox.com',
-            'specialty': 'Surgery',
-            'practice_name': 'Rose Cutters'
-        },
-        {
-            'last_name': 'Carlson',
-            'first_name': 'Mike',
-            'email_address': 'mcarlson@updox.com',
-            'specialty': 'Orthopedics',
-            'practice_name': 'Carlson Orthopedics'
-        },
-        {
-            'last_name': 'Witting',
-            'first_name': 'Mike',
-            'email_address': 'mwitting@updox.com',
-            'specialty': 'Pediatrics',
-            'practice_name': 'Witting’s Well Kids Pediatrics'
-        },
-        {
-            'last_name': 'Juday',
-            'first_name': 'Tobin',
-            'email_address': 'tjuday@updox.com',
-            'specialty': 'General Medicine',
-            'practice_name': 'Juday Family Practice'
-        }
-    ]
-    let app = angular.module('ProviderDirectoryApp', [])
-        .controller('ProviderDataController', ($scope) => {
-            $scope.dataset = dataset
-        })
-        .controller('ProviderFormController', ($scope) => {
-        })
-
-</script>
+<meta charset="utf-8">
+<link rel="stylesheet" href="providerDirectory.css"/>
 <html lang="en-US">
-
 <body>
-<div id="app" ng-app="ProviderDirectoryApp">
-    <table id="header">
+<div id="app">
+    <table id="top-header">
         <tr>
-            <td id="caduceus"><img src="./Fadookie_Caduceus.svg" alt="caduceus"></td>
-            <td id="header-text">Provider Directory v2.0</td>
+            <td class="td-caduceus"><img src="./caduceus.svg" alt="caduceus" id="caduceus"></td>
+            <td id="td-header-text">Provider Directory&nbsp;<span id="td-header-ver"></span></td>
         </tr>
     </table>
-
-
-    <div>
-        <div>
-            <h2 align="center">Add/Edit Provider</h2>
-            <form id="providerForm">
-                <table id="formTable" ng-controller="ProviderFormController">
-                    <tr>
-                        <td class="column-1">
-                            <button type="submit" onclick="doProviderSave()">Submit</button>
-                        <td>
-                        <td class="column-2"><label for="lastName">Last Name: </label><input type="text"
-                                                                                             class="inputText"
-                                                                                             id="lastName"></td>
-                        <td class="column-3"><label for="firstName">First Name: </label><input type="text"
-                                                                                               class="inputText"
-                                                                                               id="firstName"></td>
-                        <td class="column-4"><label for="email">Email Addr: </label><input type="text"
-                                                                                           class="inputText"
-                                                                                           id="email"></td>
-                        <td class="column-5"><label for="specialty">Specialty: </label><input type="text"
-                                                                                              class="inputText"
-                                                                                              id="specialty"></td>
-                        <td class="column-6"><label for="practice">Practice Name: </label><input type="text"
-                                                                                                 class="inputText"
-                                                                                                 id="practice"></td>
-                        <td>
-                            <button type="reset" onclick="doProviderSave()">Reset</button>
-                        </td>
-                    </tr>
-                </table>
-            </form>
-        </div>
-        <div>
-            <h2 align="center">Provider List</h2>
-        </div>
-        <div>
-            <table ng-controller="ProviderDataController">
+    <div class="spacer"></div>
+    <div id="container">
+        <div id="frame"></div>
+        <form id="form-provider">
+            <table id="tbl-form">
+                <tr id="row-form-lastname">
+                    <td class="col-form-label">Last Name:</td>
+                </tr>
                 <tr>
-                    <th class="column-1"></th>
-                    <th class="column-2">Last Name</th>
-                    <th class="column-3">First Name</th>
-                    <th class="column-4">Email Addr</th>
-                    <th class="column-5">Specialty</th>
-                    <th class="column-6">Practice</th>
+                    <td class="col-form-value">
+                        <input type="text" class="in-text" id="last_name" title="Last name"
+                               placeholder="Enter last name" required>
+                    </td>
                 </tr>
-                <tr ng-repeat="p in dataset | orderBy: 'last_name'">
-                    <td class="column-1"><input type="checkbox"/></td>
-                    <td class="column-2">{{p.last_name}}</td>
-                    <td class="column-3">{{p.first_name}}</td>
-                    <td class="column-4">{{p.email_address}}</td>
-                    <td class="column-5">{{p.specialty}}</td>
-                    <td class="column-6">{{p.practice_name}}</td>
+                <tr>
+                    <td>&nbsp;</td>
                 </tr>
+                <tr id="row-form-firstname">
+                    <td class="col-form-label"> First Name:</td>
+                </tr>
+                <tr>
+                    <td class="col-form-value">
+                        <input type="text" class="in-text" title="First name" id="first_name"
+                               placeholder="Enter first name" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr id="row-form-email">
+                    <td class="col-form-label"> Email Address:</td>
+                </tr>
+                <tr>
+                    <td class="col-form-value">
+                        <input type="email" class="in-text" id="email_address" title="form-email"
+                               placeholder="Enter email address" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="col-form-label">Specialty:</td>
+                </tr>
+                <tr>
+                    <td class="col-form-value">
+                        <input type="text" id="specialty" class="in-text" title="form-specialty"
+                               placeholder="Enter specialty (optional)">
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="col-form-label">Practice Name:</td>
+                </tr>
+                <tr>
+                    <td class="col-form-value">
+                        <input type="text" class="in-text" title="form-practice"
+                               placeholder="Enter practice name (optional)" id="practice_name">
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="button" id="in-provider-save">Save</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <div class="spacer"></div>
+        <div id="div-dataset">
+            <div id="div-sort-tools" style="background-color: white">
+                <span style="font-weight: bolder; font-size: 14pt">Search:</span>
+                <input type="search" id="search" class="tool search" title="Search" placeholder="Search term">
+                <span style="font-weight: bolder; font-size: 14pt">Sort by:&nbsp;</span>
+                <label for="sort-by"></label><select id="sort-by" style="width: 200px; font-size: 12pt">
+                <option id="opt-lastname" data-sort-key="last_name">Last name</option>
+                <option id="opt-firstname" data-sort-key="first_name">First name</option>
+                <option id="opt-specialty" data-sort-key="specialty">Specialty</option>
+                <option id="opt-email" data-sort-key="email_address">Email</option>
+                <option id="opt-practice" data-sort-key="practice_name">Practice name</option>
+            </select>
+            </div>
+            <table id="tbl-dataset" style="border: 1px solid black">
             </table>
         </div>
     </div>
-    </bodyj>
+    <template id="template-dataset-row">
+        <style>
+            .even-row {
+                background-color: white;
+            }
+
+            .odd-row {
+                background-color: lightgray;
+            }
+
+            .button {
+                width: 20px;
+                alignment: center;
+                padding-left: 10px;
+                padding-right: 10px;
+                row-span: 2;
+            }
+
+            .name {
+                width: 700px;
+                column-span: 2;
+                font: 18pt bolder black;
+            }
+
+            .specialty {
+                font: 18pt bolder black;
+            }
+
+            .email {
+                font-size: 14pt;
+                column-span: 2;
+            }
+
+            .practice {
+                font-size: 14pt;
+            }
+
+            .lastname {
+                width: 100%;
+            }
+
+            .firstname {
+                width: 50px;
+            }
+
+            table > tr > td {
+                height: 80px;
+            }
+        </style>
+        <tr>
+        </tr>
+        <tr class="tr-provider" style="width: inherit">
+            <td class="td-provider" style="width: inherit">
+                <table class="tbl-provider-detail">
+                    <tr class="tr-provider-detail-row">
+                        <td class="td-provider-detail button">
+                            <button type="button" class="del-button" title="Delete">&#10060;</button>
+                        </td>
+                        <td class="td-provider-name name">
+                            <span class="span-lastname lastname" contenteditable="true"></span>, <span
+                                class="span-firstname firstname"
+                                contenteditable="true"></span>
+                        </td>
+                        <td class="td-specialty specialty" contenteditable="true">></td>
+                    </tr>
+                    <tr class="tr-provider-detail-row">
+                        <td class="td-filler filler"></td>
+                        <td class="td-email email" contenteditable="true"></td>
+                        <td class="td-practice practice" contenteditable="true"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </template>
+    <script src="script.js"></script>
+    <script src="dataset.js"></script>
+    <script>
+        const version = 'v.2.0'
+        const _dataset = Object.assign(dataset)
+
+        document.querySelector('#td-header-ver').innerHTML = version
+        const tmp = document.querySelector('#template-dataset-row')
+        const tbl = document.querySelector('#tbl-dataset')
+        let isEven = true
+        window.onload = function populateProviders() {
+            function DeleteProvider(event, tbl, tr) {
+                tbl.removeChild(tr)
+            }
+
+            /*
+                Pre-load table fr
+             */
+            dataset.sort((x, y) => x.last_name.toLowerCase() <= y.last_name.toLowerCase() ? -1 : 1)
+                .forEach(async function (n, i) {
+                    let clone = document.importNode(tmp.content, true)
+                    let tr = clone.querySelector('.tr-provider')
+                    let btn = clone.querySelector('.del-button')
+                    btn.addEventListener('click', (event) => {
+                        DeleteProvider.bind(btn, event, tbl, tr).call(event, tbl, tbl.querySelector('#id'))
+                    })
+                    await mapElement(clone, '.lastname', n['last_name'])
+                    await mapElement(clone, '.firstname', n['first_name'])
+                    await mapElement(clone, '.specialty', n['specialty'])
+                    await mapElement(clone, '.email', n['email_address'])
+                    await mapElement(clone, '.practice', n['practice_name'])
+                    clone.querySelectorAll('.tr-provider')
+                        .forEach(function (row) {
+                            row.setAttribute('id', String(i))
+                            row.setAttribute('data-search-keys', `${n['last_name']} ${n['first_name']} ${n['specialty']} ${n['email_address']} ${n['practice_name']}`.toLowerCase())
+                            row.setAttribute('data-sort-last_name', `${n['last_name']}`)
+                            row.setAttribute('data-sort-first_name', `${n['first_name']}`)
+                            row.setAttribute('data-sort-email_address', `${n['email_address']}`)
+                            row.setAttribute('data-sort-specialty', `${n['specialty']}`)
+                            row.setAttribute('data-sort-practice_name', `${n['practice_name']}`)
+                            row.setAttribute('class', isEven ? `tr-provider even-row` : `tr-provider odd-row`)
+                        })
+                    tbl.appendChild(clone)
+                    isEven = !isEven
+                })
+
+        }
+
+        /**
+         *  Search Function
+         */
+        document.querySelector('#search')
+            .addEventListener('input', (event) => {
+                tbl.querySelectorAll('.tr-provider')
+                    .forEach((r) => {
+                        if (!(r.getAttribute('data-search-keys').match(`.*${event.currentTarget.value}.*`))) {
+                            r.hidden = true
+                        } else if ((r.getAttribute('data-search-keys').match(`.*${event.currentTarget.value}.*`))) {
+                            r.hidden = false
+                        }
+                    })
+            })
+
+        /*
+         * Row-sort comparator
+        */
+        const compareRows = (row1, row2, sortKey) => {
+            return row1.getAttribute(sortKey).toLowerCase() < row2.getAttribute(sortKey).toLowerCase() ? -1 : 1
+        }
+
+        /**
+         *  Sort Function
+         */
+        document.querySelector("#sort-by").addEventListener('change', (event) => {
+            console.log(event)
+            const sortKey = Array.from(event.currentTarget.getElementsByTagName('option'))
+                .filter((opt) => opt.selected === true)[0]
+                .getAttribute('data-sort-key')
+            let nodelist = tbl.querySelectorAll('.tr-provider')
+            const array = Array.from(nodelist)
+                .sort((x, y) => compareRows(x, y, `data-sort-${sortKey}`))
+            let isEvent = true
+            array.forEach((n) => {
+                n.setAttribute('class', isEven ? 'tr-provider even-row' : 'tr-provider odd-row')
+                isEven = !isEven
+                tbl.appendChild(n)
+            })
+        })
+
+        async function mapElement(node, selector, value) {
+            const elem = node.querySelector(selector)
+            elem.innerHTML = value ? value : ''
+            elem.class = `${elem.class} ${selector} data-value`
+            const keyword = selector.substring(1)
+        }
+
+        /*
+            Event Listener - Add new provider to list
+         */
+        document.getElementById('in-provider-save').addEventListener('click', async function (event) {
+            const clone = document.importNode(tmp.content, true)
+            const form = document.querySelector('#form-provider')
+            const tr = clone.querySelector('.tr-provider')
+            const lname = form.querySelector('#last_name').value
+            const fname = form.querySelector('#first_name').value
+            const specialty = form.querySelector('#specialty').value
+            const email = form.querySelector('#email_address').value
+            const practice = form.querySelector('#practice_name').value
+            await mapElement(clone, '.lastname', lname + ', ' + fname)
+            await mapElement(clone, '.firstname', lname + ', ' + fname)
+            await mapElement(clone, '.specialty', specialty)
+            await mapElement(clone, '.email', email)
+            await mapElement(clone, '.practice', practice)
+            tr.setAttribute('data-search-keys', `${lname} ${fname} ${specialty} ${email} ${practice}`.toLowerCase())
+            tr.setAttribute(`data-sort-last_name`, lname)
+            tr.setAttribute(`data-sort-first_name`, fname)
+            tr.setAttribute(`data-sort-email_address`, email)
+            tr.setAttribute(`data-sort-specialty`, specialty)
+            tr.setAttribute(`data-sort-practice_name`, practice)
+            tbl.appendChild(clone)
+            let isEven = true
+            let nTbl = document.createElement('table')
+            await tbl.querySelectorAll('.tr-provider')
+                .forEach((n) => {
+                    n.setAttribute('class', isEven ? 'tr-provider even-row' : 'tr-provider odd-row')
+                    isEven = !isEven
+                })
+            tbl.appendChild(nTbl)
+            form.reset()
+        })
+
+
+    </script>
+</body>
 </html>
