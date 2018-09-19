@@ -72,9 +72,31 @@ table#dataset {
 #container {
     padding: 20px;
     display: grid;
-    grid-template-columns: 50px 450px 50px 1000px;
+    grid-template-columns: 50px 450px ;
+    grid-auto-flow: column;
+}
+#btn-provider-save {
+    height: 25px;
+    width: 100px;
+    border-radius: 10px;
+    background-color: lightgray;
+    border: 2px solid black;
+    font: 12pt bold black;
 }
 
+.del-button {
+    alignment: center;
+    border-radius: 5px;
+    box-shadow: black;
+    background-color: lightgray;
+    border-right-width: 3px;
+    border-bottom-width: 3px;
+    border-bottom-color: darkgray;
+    border-right-color: darkgray;
+    border-left-width: 3px;
+    border-left-color: white;
+    border-top-color: white;
+}
 #container > div {
     /*border-radius: 5px;*/
     /*padding: 10px;*/

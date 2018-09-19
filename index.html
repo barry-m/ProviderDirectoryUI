@@ -82,7 +82,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <button type="button" id="in-provider-save">Save</button>
+                        <button type="button" id="btn-provider-save">Save</button>
                     </td>
                 </tr>
             </table>
@@ -113,14 +113,6 @@
     </div>
     <template id="template-dataset-row">
         <style>
-            .even-row {
-                background-color: white;
-            }
-
-            .odd-row {
-                background-color: lightgray;
-            }
-
             .button {
                 width: 20px;
                 alignment: center;
@@ -240,7 +232,7 @@
         /*
             Event Listener - Add new provider to list
          */
-        document.getElementById('in-provider-save').addEventListener('click', saveEventHandler)
+        document.getElementById('btn-provider-save').addEventListener('click', saveEventHandler)
 
     </script>
 </body>
