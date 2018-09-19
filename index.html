@@ -191,6 +191,7 @@
         window.onload = function populateProviders() {
             function DeleteProvider(event, tbl, tr) {
                 tbl.removeChild(tr)
+                sortByEventHandler(event)
             }
 
             /*
