@@ -88,13 +88,19 @@
                 <span style="font-weight: bolder; font-size: 14pt">Search:</span>
                 <input type="search" id="search" class="tool search" title="Search" placeholder="Search term">
                 <span style="font-weight: bolder; font-size: 14pt">Sort by:&nbsp;</span>
-                <label for="sort-by"></label><select id="sort-by" style="width: 200px; font-size: 12pt">
-                <option id="opt-lastname" data-sort-key="last_name">Last name</option>
-                <option id="opt-firstname" data-sort-key="first_name">First name</option>
-                <option id="opt-specialty" data-sort-key="specialty">Specialty</option>
-                <option id="opt-email" data-sort-key="email_address">Email</option>
-                <option id="opt-practice" data-sort-key="practice_name">Practice name</option>
-            </select>
+                <label for="sort-by"></label>
+                <select id="sort-by" style="width: 200px; font-size: 12pt">
+                    <option id="opt-lastname" data-sort-key="last_name" selected>Last name</option>
+                    <option id="opt-firstname" data-sort-key="first_name">First name</option>
+                    <option id="opt-specialty" data-sort-key="specialty">Specialty</option>
+                    <option id="opt-email" data-sort-key="email_address">Email</option>
+                    <option id="opt-practice" data-sort-key="practice_name">Practice name</option>
+                </select>
+                <label for="sort-order"></label>
+                <select id="sort-order" style="width: 200px; font-size: 12pt">
+                    <option id="opt-sort-asc" data-sort-asc="true" selected>Ascending</option>
+                    <option id="opt-sort-desc" data-sort-asc="false">Descending</option>
+                </select>
             </div>
             <table id="tbl-dataset" style="border: 1px solid black">
             </table>
@@ -177,13 +183,11 @@
     <script src="script.js"></script>
     <script src="dataset.js"></script>
     <script>
-        const version = 'v.2.0'
         const _dataset = Object.assign(dataset)
 
         document.querySelector('#td-header-ver').innerHTML = version
         const tmp = document.querySelector('#template-dataset-row')
         const tbl = document.querySelector('#tbl-dataset')
-        let isEven = true
         window.onload = function populateProviders() {
             function DeleteProvider(event, tbl, tr) {
                 tbl.removeChild(tr)
@@ -192,7 +196,7 @@
             /*
                 Pre-load table fr
              */
-            dataset.sort((x, y) => x.last_name.toLowerCase() <= y.last_name.toLowerCase() ? -1 : 1)
+            _dataset.sort((x, y) => x.last_name.toLowerCase() <= y.last_name.toLowerCase() ? -1 : 1)
                 .forEach(async function (n, i) {
                     let clone = document.importNode(tmp.content, true)
                     let tr = clone.querySelector('.tr-provider')
@@ -225,86 +229,16 @@
         /**
          *  Search Function
          */
-        document.querySelector('#search')
-            .addEventListener('input', (event) => {
-                tbl.querySelectorAll('.tr-provider')
-                    .forEach((r) => {
-                        if (!(r.getAttribute('data-search-keys').match(`.*${event.currentTarget.value}.*`))) {
-                            r.hidden = true
-                        } else if ((r.getAttribute('data-search-keys').match(`.*${event.currentTarget.value}.*`))) {
-                            r.hidden = false
-                        }
-                    })
-            })
-
-        /*
-         * Row-sort comparator
-        */
-        const compareRows = (row1, row2, sortKey) => {
-            return row1.getAttribute(sortKey).toLowerCase() < row2.getAttribute(sortKey).toLowerCase() ? -1 : 1
-        }
-
+        document.querySelector('#search').addEventListener('input', searchEventListener)
         /**
          *  Sort Function
          */
-        document.querySelector("#sort-by").addEventListener('change', (event) => {
-            console.log(event)
-            const sortKey = Array.from(event.currentTarget.getElementsByTagName('option'))
-                .filter((opt) => opt.selected === true)[0]
-                .getAttribute('data-sort-key')
-            let nodelist = tbl.querySelectorAll('.tr-provider')
-            const array = Array.from(nodelist)
-                .sort((x, y) => compareRows(x, y, `data-sort-${sortKey}`))
-            let isEvent = true
-            array.forEach((n) => {
-                n.setAttribute('class', isEven ? 'tr-provider even-row' : 'tr-provider odd-row')
-                isEven = !isEven
-                tbl.appendChild(n)
-            })
-        })
-
-        async function mapElement(node, selector, value) {
-            const elem = node.querySelector(selector)
-            elem.innerHTML = value ? value : ''
-            elem.class = `${elem.class} ${selector} data-value`
-            const keyword = selector.substring(1)
-        }
-
+        document.querySelector("#sort-by").addEventListener('change', sortByEventHandler)
+        document.querySelector('#sort-order').addEventListener('change', sortByEventHandler)
         /*
             Event Listener - Add new provider to list
          */
-        document.getElementById('in-provider-save').addEventListener('click', async function (event) {
-            const clone = document.importNode(tmp.content, true)
-            const form = document.querySelector('#form-provider')
-            const tr = clone.querySelector('.tr-provider')
-            const lname = form.querySelector('#last_name').value
-            const fname = form.querySelector('#first_name').value
-            const specialty = form.querySelector('#specialty').value
-            const email = form.querySelector('#email_address').value
-            const practice = form.querySelector('#practice_name').value
-            await mapElement(clone, '.lastname', lname + ', ' + fname)
-            await mapElement(clone, '.firstname', lname + ', ' + fname)
-            await mapElement(clone, '.specialty', specialty)
-            await mapElement(clone, '.email', email)
-            await mapElement(clone, '.practice', practice)
-            tr.setAttribute('data-search-keys', `${lname} ${fname} ${specialty} ${email} ${practice}`.toLowerCase())
-            tr.setAttribute(`data-sort-last_name`, lname)
-            tr.setAttribute(`data-sort-first_name`, fname)
-            tr.setAttribute(`data-sort-email_address`, email)
-            tr.setAttribute(`data-sort-specialty`, specialty)
-            tr.setAttribute(`data-sort-practice_name`, practice)
-            tbl.appendChild(clone)
-            let isEven = true
-            let nTbl = document.createElement('table')
-            await tbl.querySelectorAll('.tr-provider')
-                .forEach((n) => {
-                    n.setAttribute('class', isEven ? 'tr-provider even-row' : 'tr-provider odd-row')
-                    isEven = !isEven
-                })
-            tbl.appendChild(nTbl)
-            form.reset()
-        })
-
+        document.getElementById('in-provider-save').addEventListener('click', saveEventHandler)
 
     </script>
 </body>
