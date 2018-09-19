@@ -3,6 +3,19 @@ img {
     height: 75%;
 }
 
+#form-validation-error {
+    overflow: visible;
+    /*margin: 15px;*/
+    color: white;
+    alignment: center;
+    text-align: center;
+    width: 350px;
+    height: 25px;
+    border-radius: 15px;
+    background-color: red;
+    padding: 1em;
+}
+
 .even-row {
     background-color: white;
 }
@@ -13,6 +26,15 @@ img {
 input.in-text {
     width: 325px;
     font-size: 12pt;
+}
+
+div#dataset {
+    display: block;
+    /*flex: auto;*/
+    /*overflow: auto;*/
+    padding: 25px;
+    font-size: large;
+    height: 550px;
 }
 
 table#dataset {
@@ -69,26 +91,16 @@ div#app {
     height: 100%;
 }
 
-/*.tool {*/
-    /*width: 200px;*/
-    /*font-size: 14pt;*/
-    /*font-weight: bolder;*/
-/*}*/
-
-.spacer {
-    /*height: 5px;*/
-    /*background-color: white;*/
-}
-
 #form-provider {
+    display: block;
+    flex: auto;
+    overflow: auto;
     background-color: lightblue;
     border-radius: 25px;
     padding: 25px;
     font-size: large;
     border: 2px solid black;
-}
-
-#tbl-form {
+    height: 550px;
 }
 
 .col-form-label {

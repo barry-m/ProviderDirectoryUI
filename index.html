@@ -15,13 +15,18 @@
         <div id="frame"></div>
         <form id="form-provider">
             <table id="tbl-form">
+                <tr>
+                    <td>
+                        <div id="form-validation-error" hidden> ** Please complete the required fields **</div>
+                    </td>
+                </tr>
                 <tr id="row-form-lastname">
                     <td class="col-form-label">Last Name:</td>
                 </tr>
                 <tr>
                     <td class="col-form-value">
                         <input type="text" class="in-text" id="last_name" title="Last name"
-                               placeholder="Enter last name" required>
+                               placeholder="Enter last name (required)" required>
                     </td>
                 </tr>
                 <tr>
@@ -33,7 +38,7 @@
                 <tr>
                     <td class="col-form-value">
                         <input type="text" class="in-text" title="First name" id="first_name"
-                               placeholder="Enter first name" required>
+                               placeholder="Enter first name (required)" required>
                     </td>
                 </tr>
                 <tr>
@@ -45,7 +50,7 @@
                 <tr>
                     <td class="col-form-value">
                         <input type="email" class="in-text" id="email_address" title="form-email"
-                               placeholder="Enter email address" required>
+                               placeholder="Enter email address (required)" required>
                     </td>
                 </tr>
                 <tr>
@@ -188,15 +193,11 @@
         document.querySelector('#td-header-ver').innerHTML = version
         const tmp = document.querySelector('#template-dataset-row')
         const tbl = document.querySelector('#tbl-dataset')
-        window.onload = function populateProviders() {
-            function DeleteProvider(event, tbl, tr) {
-                tbl.removeChild(tr)
-                sortByEventHandler(event)
-            }
 
-            /*
-                Pre-load table fr
-             */
+        /*
+            Pre-load table fr
+         */
+        window.onload = function populateProviders() {
             _dataset.sort((x, y) => x.last_name.toLowerCase() <= y.last_name.toLowerCase() ? -1 : 1)
                 .forEach(async function (n, i) {
                     let clone = document.importNode(tmp.content, true)

@@ -1,8 +1,8 @@
 const version = 'v.2.0'
-populateProviders = () => {
-    function DeleteProvider(event, tbl, tr) {
-        tbl.removeChild(tr)
-    }
+
+function DeleteProvider(event, tbl, tr) {
+    tbl.removeChild(tr)
+    sortByEventHandler(event)
 }
 
 /*
@@ -55,7 +55,7 @@ const mapElement = async (node, selector, value) => {
 */
 compareRows = (row1, row2, sortKey, asc) => {
     return asc ? row1.getAttribute(sortKey).toLowerCase() <= row2.getAttribute(sortKey).toLowerCase() ? -1 : 1
-    : row1.getAttribute(sortKey).toLowerCase() > row2.getAttribute(sortKey).toLowerCase() ? -1 : 1
+        : row1.getAttribute(sortKey).toLowerCase() > row2.getAttribute(sortKey).toLowerCase() ? -1 : 1
 }
 
 sortByEventHandler = (event) => {
@@ -67,7 +67,7 @@ sortByEventHandler = (event) => {
         .filter((opt) => opt.selected === true)[0]
         .getAttribute('data-sort-asc') === "true"
     const array = Array.from(tbl.querySelectorAll('.tr-provider'))
-        .sort((x, y) => compareRows(x, y, `data-sort-${sortKey}`, sortOrderIsAsc) )
+        .sort((x, y) => compareRows(x, y, `data-sort-${sortKey}`, sortOrderIsAsc))
     let isEven = true
     array.forEach((n) => {
         n.setAttribute('class', isEven ? 'tr-provider even-row' : 'tr-provider odd-row')
@@ -81,8 +81,17 @@ const saveEventHandler = async (event) => {
     const tr = clone.querySelector('.tr-provider')
     const lname = form.querySelector('#last_name').value
     const fname = form.querySelector('#first_name').value
-    const specialty = form.querySelector('#specialty').value
     const email = form.querySelector('#email_address').value
+    if ((!email || email.length === 0) || (!lname || lname.length === 0) || (!fname || fname === 0)) {
+        document.querySelector('#form-validation-error').removeAttribute('hidden')
+        return
+    }
+    document.querySelector('#form-validation-error').setAttribute('hidden', null)
+    let btn = clone.querySelector('.del-button')
+    btn.addEventListener('click', (event) => {
+        DeleteProvider.bind(btn, event, tbl, tr).call(event, tbl, tbl.querySelector('#id'))
+    })
+    const specialty = form.querySelector('#specialty').value
     const practice = form.querySelector('#practice_name').value
     await mapElement(clone, '.lastname', lname)
     await mapElement(clone, '.firstname', fname)
